@@ -14,6 +14,8 @@ make
 ```shell
 # search redis:
 yum search redis
+
+# install redis
 yum install redis.x86_64
 ```
 
