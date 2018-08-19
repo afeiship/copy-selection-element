@@ -10,6 +10,12 @@ make
 ```
 
 
+## yum install
+```shell
+# search redis:
+yum search redis
+yum install redis.x86_64
+```
 
 
 
