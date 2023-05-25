@@ -23,7 +23,6 @@ class EnvManager {
   public get(inPath?: PathType) {
     const { prefix, env } = this.options;
     const size = prefix.length;
-    if (!inPath) return env;
     const clonedEnv = JSON.parse(JSON.stringify(env));
     nx.forIn(clonedEnv, (k: string, v: EnvType) => {
       if (k.includes(prefix)) {
@@ -31,7 +30,7 @@ class EnvManager {
         delete clonedEnv[k];
       }
     });
-    return nx.get(clonedEnv, inPath);
+    return inPath ? nx.get(clonedEnv, inPath) : clonedEnv;
   }
 
   public set(inCmdRc) {
