@@ -40,7 +40,7 @@ const craEnv = new EnvManager({
 }
 ```
 
-> 
+> You can use `env-cmdrc.js` to manage your envs.
 ```js
 // ---------- .env-cmdrc.js
 module.exports = craEnv.set({
