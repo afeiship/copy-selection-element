@@ -35,13 +35,12 @@ class EnvManager {
   public set(inCmdRc) {
     const envs = inCmdRc;
     const { prefix, env } = this.options;
-    const size = prefix.length;
     nx.forIn(envs, (_: string, value) => {
       nx.forIn(value, (k: string, v: EnvType) => {
         // v: must be string
         if (typeof v === 'string') env[k] = v;
         if (!k.includes(prefix)) {
-          value[size + k] = v;
+          value[prefix + k] = v;
           delete value[k];
         }
       });
