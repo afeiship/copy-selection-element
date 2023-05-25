@@ -20,16 +20,16 @@ class EnvManager {
     this.options = nx.mix({ prefix: 'NX_', env: process.env }, inOptions);
   }
 
-  public get(inPath?: PathType) {
-    const { prefix, env } = this.options;
+  public get(inPath?: PathType, inEnv = this.options.env) {
+    const { prefix } = this.options;
     const size = prefix.length;
-    nx.forIn(env, (k: string, v: EnvType) => {
+    nx.forIn(inEnv, (k: string, v: EnvType) => {
       if (k.includes(prefix)) {
-        env[k.slice(size)] = v;
-        delete env[k];
+        inEnv[k.slice(size)] = v;
+        delete inEnv[k];
       }
     });
-    return inPath ? nx.get(env, inPath) : env;
+    return inPath ? nx.get(inEnv, inPath) : inEnv;
   }
 
   public set(inCmdRc) {
