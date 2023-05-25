@@ -20,16 +20,17 @@ class EnvManager {
     this.options = nx.mix({ prefix: 'NX_', env: process.env }, inOptions);
   }
 
-  public get(inPath: PathType, inEnv: any) {
-    const { prefix } = this.options;
+  public get(inPath: PathType) {
+    const { prefix, env } = this.options;
     const size = prefix.length;
-    nx.forIn(inEnv, (k: string, v: EnvType) => {
+    const clonedEnv = JSON.parse(JSON.stringify(env));
+    nx.forIn(clonedEnv, (k: string, v: EnvType) => {
       if (k.includes(prefix)) {
-        inEnv[k.slice(size)] = v;
-        delete inEnv[k];
+        clonedEnv[k.slice(size)] = v;
+        delete clonedEnv[k];
       }
     });
-    return inPath ? nx.get(inEnv, inPath) : inEnv;
+    return inPath ? nx.get(clonedEnv, inPath) : clonedEnv;
   }
 
   public set(inCmdRc) {
