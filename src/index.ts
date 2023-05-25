@@ -7,6 +7,7 @@ type PathType = null | string;
 interface EnvManagerOptions {
   prefix: string;
   env?: any;
+  upper?: boolean;
 }
 
 interface EnvType {
@@ -17,20 +18,21 @@ class EnvManager {
   public options = {} as EnvManagerOptions;
 
   constructor(inOptions: EnvManagerOptions) {
-    this.options = nx.mix({ prefix: 'NX_', env: process.env }, inOptions);
+    this.options = nx.mix({ prefix: 'NX_', env: process.env, upper: true }, inOptions);
   }
 
   public get(inPath?: PathType) {
-    const { prefix, env } = this.options;
+    const { prefix, env, upper } = this.options;
     const size = prefix.length;
     const clonedEnv = JSON.parse(JSON.stringify(env));
+    const path = upper ? inPath?.toUpperCase() : inPath;
     nx.forIn(clonedEnv, (k: string, v: EnvType) => {
       if (k.includes(prefix)) {
         clonedEnv[k.slice(size)] = v;
         delete clonedEnv[k];
       }
     });
-    return inPath ? nx.get(clonedEnv, inPath) : clonedEnv;
+    return path ? nx.get(clonedEnv, path) : clonedEnv;
   }
 
   public set(inCmdRc) {
