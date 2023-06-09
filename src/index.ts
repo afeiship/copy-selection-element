@@ -28,7 +28,7 @@ class EnvManager {
     const path = upper ? inPath?.toUpperCase() : inPath;
     nx.forIn(clonedEnv, (k: string, v: EnvType) => {
       if (k.includes(prefix)) {
-        clonedEnv[k.slice(size)] = v;
+        clonedEnv[k.slice(size).toUpperCase()] = v;
         delete clonedEnv[k];
       }
     });
@@ -41,9 +41,9 @@ class EnvManager {
     nx.forIn(envs, (_: string, value) => {
       nx.forIn(value, (k: string, v: EnvType) => {
         // v: must be string
-        if (typeof v === 'string') env[k] = v;
+        if (typeof v === 'string') env[k.toUpperCase()] = v;
         if (!k.includes(prefix)) {
-          value[prefix + k] = v;
+          value[(prefix + k).toUpperCase()] = v;
           delete value[k];
         }
       });
