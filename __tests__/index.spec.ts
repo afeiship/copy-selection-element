@@ -19,6 +19,7 @@ describe('api.basic', () => {
       },
     });
 
-    console.log(mgr.get());
+    expect(mgr.get('debug')).toBe(true);
+    expect(mgr.get('API_ACCOUNT')).toBe('https://account-api.alo7.com');
   });
 });
