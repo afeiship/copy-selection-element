@@ -60,5 +60,9 @@
     "env",
     "env-cmd",
     "environment"
-  ]
+  ],
+  "dependencies": {
+    "@jswork/next-deep-clone": "^1.0.3",
+    "@jswork/next-json": "^1.0.5"
+  }
 }

@@ -1,4 +1,6 @@
 import nx from '@jswork/next';
+import '@jswork/next-deep-clone';
+import '@jswork/next-json';
 
 declare var wx: any;
 
@@ -7,7 +9,6 @@ type PathType = null | string;
 interface EnvManagerOptions {
   prefix: string;
   env?: any;
-  upper?: boolean;
 }
 
 interface EnvType {
@@ -18,14 +19,14 @@ class EnvManager {
   public options = {} as EnvManagerOptions;
 
   constructor(inOptions: EnvManagerOptions) {
-    this.options = nx.mix({ prefix: 'NX_', env: process.env, upper: true }, inOptions);
+    this.options = nx.mix({ prefix: 'NX_', env: process.env }, inOptions);
   }
 
   public get(inPath?: PathType) {
-    const { prefix, env, upper } = this.options;
+    const { prefix, env } = this.options;
     const size = prefix.length;
-    const clonedEnv = JSON.parse(JSON.stringify(env));
-    const path = upper ? inPath?.toUpperCase() : inPath;
+    const clonedEnv = nx.deepClone(env);
+    const path = inPath?.toUpperCase();
     nx.forIn(clonedEnv, (k: string, v: EnvType) => {
       if (k.includes(prefix)) {
         clonedEnv[k.slice(size).toUpperCase()] = v;
@@ -33,11 +34,7 @@ class EnvManager {
       }
     });
     const res = path ? nx.get(clonedEnv, path) : clonedEnv;
-    try {
-      return JSON.parse(res);
-    } catch (e) {
-      return res;
-    }
+    return nx.parse(res);
   }
 
   public set(inCmdRc) {
