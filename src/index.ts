@@ -43,7 +43,7 @@ class EnvManager {
     nx.forIn(envs, (_: string, value) => {
       nx.forIn(value, (k: string, v: EnvType) => {
         // v: must be string
-        if (typeof v === 'string') env[k.toUpperCase()] = v;
+        env[k.toUpperCase()] = v;
         if (!k.includes(prefix)) {
           value[(prefix + k).toUpperCase()] = v;
           delete value[k];
