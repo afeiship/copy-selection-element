@@ -32,7 +32,12 @@ class EnvManager {
         delete clonedEnv[k];
       }
     });
-    return path ? nx.get(clonedEnv, path) : clonedEnv;
+    const res = path ? nx.get(clonedEnv, path) : clonedEnv;
+    try {
+      return JSON.parse(res);
+    } catch (e) {
+      return res;
+    }
   }
 
   public set(inCmdRc) {
