@@ -4,8 +4,6 @@ import '@jswork/next-json';
 
 declare var wx: any;
 
-type PathType = null | string;
-
 interface EnvManagerOptions {
   prefix: string;
   env?: any;
@@ -22,7 +20,7 @@ class EnvManager {
     this.options = nx.mix({ prefix: 'NX_', env: process.env }, inOptions);
   }
 
-  public get(inPath?: PathType) {
+  public get(inPath?: string) {
     const { prefix, env } = this.options;
     const size = prefix.length;
     const clonedEnv = nx.deepClone(env);
