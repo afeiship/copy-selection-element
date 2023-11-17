@@ -8,12 +8,17 @@ const MSG = {
   envname: "Don't use envname as key, it's reserved!",
 };
 
-interface EnvManagerOptions {
+export interface EnvManagerOptions {
   prefix: string;
   env?: Record<string, string | undefined>;
+  harmony?: boolean;
 }
 
-interface EnvType {
+export interface NxStatic {
+  $env: (inPath?: string) => any;
+}
+
+export interface EnvType {
   readonly [index: string]: unknown;
 }
 
@@ -22,6 +27,14 @@ class EnvManager {
 
   constructor(inOptions: EnvManagerOptions) {
     this.options = nx.mix({ prefix: 'NX_', env: process.env }, inOptions);
+  }
+
+  public init() {
+    const { harmony } = this.options;
+    const isInject = harmony === undefined || harmony;
+    if (isInject) {
+      nx.set(nx, '$env', this.get.bind(this));
+    }
   }
 
   public get(inPath?: string) {
