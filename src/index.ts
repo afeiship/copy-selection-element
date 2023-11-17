@@ -27,14 +27,12 @@ class EnvManager {
 
   constructor(inOptions: EnvManagerOptions) {
     this.options = nx.mix({ prefix: 'NX_', env: process.env }, inOptions);
+    this.init();
   }
 
   public init() {
     const { harmony } = this.options;
-    const isInject = harmony === undefined || harmony;
-    if (isInject) {
-      nx.set(nx, '$env', this.get.bind(this));
-    }
+    if (harmony) nx.set(nx, '$env', this.get.bind(this));
   }
 
   public get(inPath?: string) {
