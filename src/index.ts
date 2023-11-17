@@ -8,17 +8,13 @@ const MSG = {
   envname: "Don't use envname as key, it's reserved!",
 };
 
-export interface EnvManagerOptions {
+interface EnvManagerOptions {
   prefix: string;
   env?: Record<string, string | undefined>;
   harmony?: boolean;
 }
 
-export interface NxStatic {
-  $env: (inPath?: string) => any;
-}
-
-export interface EnvType {
+interface EnvType {
   readonly [index: string]: unknown;
 }
 

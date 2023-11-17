@@ -23,7 +23,11 @@ gulp.task('ts:scripts:esmp', function () {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('copy:types', function () {
+  return gulp.src('src/@types/*').pipe(gulp.dest('dist/@types'));
+});
+
 gulp.task(
   'default',
-  gulp.series(['clean', 'ts:scripts:cjs', 'ts:scripts:esmp', 'ts:scripts:typing'])
+  gulp.series(['clean', 'ts:scripts:cjs', 'ts:scripts:esmp', 'ts:scripts:typing', 'copy:types'])
 );
