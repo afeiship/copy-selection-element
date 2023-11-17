@@ -65,6 +65,12 @@ const buildEnv = craEnv.get('BUILD_ENV');
 const envs = craEnv.get();
 ```
 
+## types
+```ts
+// add to global.d.ts OR nx-env.d.ts
+/// <reference types="@jswork/env-manager/dist/@types" />
+```
+
 ## license
 Code released under [the MIT license](https://github.com/afeiship/env-manager/blob/master/LICENSE.txt).
 
