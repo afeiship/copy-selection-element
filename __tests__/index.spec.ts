@@ -3,7 +3,7 @@ import EnvManager from '../src';
 const mgr = new EnvManager({ prefix: 'NX_', env: {} });
 
 describe('api.basic', () => {
-  test('normail single value case', () => {
+  test('normail single value case + predefined mode', () => {
     mgr.set({
       beta: {
         api_account: 'https://backend-service-account-api.beta.saybot.net',
@@ -19,7 +19,9 @@ describe('api.basic', () => {
       },
     });
 
+
     expect(mgr.get('debug')).toBe(true);
     expect(mgr.get('API_ACCOUNT')).toBe('https://account-api.alo7.com');
+    expect(mgr.get('envname')).toBe('production');
   });
 });

@@ -6,7 +6,7 @@ declare var wx: any;
 
 interface EnvManagerOptions {
   prefix: string;
-  env?: any;
+  env?: Record<string, string | undefined>;
 }
 
 interface EnvType {
@@ -35,21 +35,22 @@ class EnvManager {
     return nx.parse(res);
   }
 
-  public set(inCmdRc) {
-    const envs = inCmdRc;
+  public set(inEnvs) {
     const { prefix, env } = this.options;
-    nx.forIn(envs, (_: string, value) => {
+    nx.forIn(inEnvs, (mode: string, value) => {
+      const envName = `${prefix}ENVNAME`;
       nx.forIn(value, (k: string, v: EnvType) => {
         // v: must be string, process.env[k] = string(v);
         const parsed = nx.stringify(v);
-        env[k.toUpperCase()] = parsed;
+        env![k.toUpperCase()] = parsed;
+        env![envName] = mode;
         if (!k.includes(prefix)) {
           value[(prefix + k).toUpperCase()] = parsed;
           delete value[k];
         }
       });
     });
-    return envs;
+    return inEnvs;
   }
 }
 
