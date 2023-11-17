@@ -4,6 +4,10 @@ import '@jswork/next-json';
 
 declare var wx: any;
 
+const MSG = {
+  envname: "Don't use envname as key, it's reserved!",
+};
+
 interface EnvManagerOptions {
   prefix: string;
   env?: Record<string, string | undefined>;
@@ -44,6 +48,8 @@ class EnvManager {
         const parsed = nx.stringify(v);
         env![k.toUpperCase()] = parsed;
         env![envName] = mode;
+        // detect user defined envname
+        if (k.toUpperCase() === 'ENVNAME') throw new Error(MSG.envname);
         if (!k.includes(prefix)) {
           value[(prefix + k).toUpperCase()] = parsed;
           delete value[k];
