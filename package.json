@@ -1,6 +1,6 @@
 {
   "name": "@jswork/copy-selection-element",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Copy html from selection element.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -25,5 +25,13 @@
     "registry": "https://registry.npmjs.org"
   },
   "homepage": "https://js.work",
-  "dependencies": {}
+  "dependencies": {},
+  "keywords": [
+    "copy",
+    "element",
+    "email",
+    "html",
+    "selection",
+    "text"
+  ]
 }
