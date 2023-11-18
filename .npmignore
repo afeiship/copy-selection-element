@@ -18,4 +18,4 @@ jest.config.js
 babel.config.js
 yarn-error.log
 yarn.lock
-.nvmrc
+tsup.config.ts
