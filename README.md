@@ -1,5 +1,5 @@
-# i18n-helper
-> I18n helper.
+# copy-selection-element
+> Copy html from selection element.
 
 [![version][version-image]][version-url]
 [![license][license-image]][license-url]
@@ -8,14 +8,19 @@
 
 ## installation
 ```shell
-npm install @jswork/i18n-helper
+npm install @jswork/copy-selection-element
 ```
 
 ## usage
 ```js
-import i18nHelper from '@jswork/i18n-helper';
+import copySelectionElement from "@jswork/copy-selection-element";
 
-// usage goes here.
+const el = document.querySelector(".content");
+const successful = copySelectionElement(el);
+
+if (successful) {
+  // do somthing...
+}
 ```
 
 ## license
